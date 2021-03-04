@@ -1,5 +1,7 @@
 # laravel-api-clean-code
 
+https://lucasfsantos.com/web-api-business-logic-vs-http-layer
+
 This repository is just an example is to develop a basic/clean architecture to build a laravel web API
 
 ## Features :clipboard:
