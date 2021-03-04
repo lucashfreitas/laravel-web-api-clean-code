@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "scripts": {
+        "up": "docker-compose up -d",
+        "down": "docker-compose down",
+        "test": "docker exec -it api-app php artisan test",
+        "clear": "yarn config:clear && yarn optimize:clear",
+        "artisan": "docker exec -it api-app php artisan",
+        "composer:install": "docker exec -it api-app composer install",
+        "optimize": "docker exec -it api-app php artisan optimize",
+        "optimize:clear": "docker exec -it api-app php artisan optimize:clear",
+        "composer:autoload": "docker exec -it api-app composer dump-autoload",
+        "config:cache": "docker exec -it api-app php artisan config:cache",
+        "config:clear": "docker exec -it api-app php artisan config:clear",
+        "migrate": "docker exec -it api-app php artisan migrate",
+        "make:controller": "docker exec -it api-app php artisan make:controller",
+        "make:migration": "docker exec -it api-app php artisan make:migration",
+        "make:model": "docker exec -it api-app php artisan make:model",
+        "make:request": "docker exec -it api-app php artisan make:request",
+        "make:test": "docker exec -it api-app php artisan make:test"
+    },
+    "devDependencies": {
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14"
+    }
+}

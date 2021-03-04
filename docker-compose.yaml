@@ -1,0 +1,65 @@
+version: "3"
+services:
+  #PHP Service
+  api-app:
+    depends_on:
+      - "api-db"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-app
+    #restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - api-network
+
+  #Nginx Service
+  api-server:
+    depends_on:
+      - "api-db"
+    image: nginx:alpine
+    container_name: api-server
+    #restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - api-network
+  api-db:
+    image: mysql:8.0
+    container_name: api-db
+    tty: true
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: api
+      MYSQL_PORT: 3306
+      MYSQL_PASSWORD: 123456ping
+      MYSQL_DATABASE: api
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - apidbdata:/var/lib/mysql/
+      - ./docker/mysql/backup:/docker-entrypoint-initdb.d
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - api-network
+
+#Docker Networks
+networks:
+  api-network:
+    driver: bridge
+#Volumes
+volumes:
+  apidbdata:
+    driver: local
