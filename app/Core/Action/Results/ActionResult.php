@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services\Action\Results;
+namespace App\Core\Action\Results;
 
 use App\Http\Responses\BaseResponse;
 

@@ -2,11 +2,11 @@
 
 namespace App\Features\Auth\Requests;
 
-use App\Http\Requests\BaseRequest;
-use App\Utils\StringUtils;
-use Illuminate\Support\Facades\Hash;
 
-class LoginRequest extends BaseRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+
+class LoginRequest extends FormRequest
 {
 
     public function messages()

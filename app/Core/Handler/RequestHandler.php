@@ -1,33 +1,27 @@
 <?php
 
 
-namespace App\Services\Action;
+namespace App\Core\Handler;
 
 use App\Exceptions\ExceptionLogger;
-use App\Services\Action\Results\ActionResult;
-use App\Services\Action\Results\ActionError;
+use App\Http\Requests\BaseRequest;
+use App\Core\Action\Results\ActionResult;
+use App\Core\Action\Results\ActionError;
 use App\Utils\ConfigHelper;
 use Exception;
 use Illuminate\Http\Request;
 
-abstract class Action
+/**
+ * Base handler class
+ */
+abstract class RequestHandler
 {
 
-
-    public $id;
-
-
-
-    public $request;
-    /** @var \App\Models\User|null */
-    public $user;
-    /** @var \App\Models\User|null */
-    public $input;
-
-
-    protected function setRequestInput()
+    public function __construct(Request $request)
     {
+        $this->request = $request;
 
+        $this->user = $request->user();
         if (method_exists($this->request, 'validated')) {
             $this->input = $this->request->validated();
         } else {
@@ -36,14 +30,6 @@ abstract class Action
     }
 
 
-
-    public final function __construct(Request $request)
-    {
-        $this->request = $request;
-
-        $this->user = $request->user();
-        $this->setRequestInput();
-    }
 
     public function onError(Exception $ex): ActionResult
     {

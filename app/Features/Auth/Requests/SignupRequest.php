@@ -2,9 +2,10 @@
 
 namespace App\Features\Auth\Requests;
 
-use App\Http\Requests\BaseRequest;
 
-class SignupRequest extends BaseRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class SignupRequest extends FormRequest
 {
     public function messages()
     {

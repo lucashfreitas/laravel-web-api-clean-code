@@ -2,30 +2,25 @@
 
 
 
-namespace App\Services\Action\Results;
+namespace App\Core\Action\Results;
 
 use App\Http\Responses\BaseResponse;
-use Exception;
-use Illuminate\Support\Facades\Log;
 
-/**
- * Business roles validation
- */
-class ActionDomainValidation extends ActionResult
+class ActionSuccess extends ActionResult
 {
 
-    public function __construct(String $message, $data = null)
+    public function __construct($data = null, $message = '')
     {
-        $this->message = $message;
         $this->data = $data;
+        $this->success = true;
+        $this->message = $message;
         $this->boot();
     }
-
 
     public function toResponse(): BaseResponse
     {
         $response = new BaseResponse();
-        $response->success = false;
+        $response->success = $this->success;
         $response->data = $this->data;
         $response->errors =  [];
         $response->message = $this->message;

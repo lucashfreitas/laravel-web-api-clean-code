@@ -2,18 +2,22 @@
 
 
 
-namespace App\Services\Action\Results;
+namespace App\Core\Action\Results;
 
 use App\Http\Responses\BaseResponse;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class ActionError extends ActionResult
+/**
+ * Business roles validation
+ */
+class ActionDomainValidation extends ActionResult
 {
 
-    public function __construct($message = "")
+    public function __construct(String $message, $data = null)
     {
-        $this->message = $message || __("general.unexpected:error");
+        $this->message = $message;
+        $this->data = $data;
         $this->boot();
     }
 
@@ -25,6 +29,7 @@ class ActionError extends ActionResult
         $response->data = $this->data;
         $response->errors =  [];
         $response->message = $this->message;
+
         return $response;
     }
 }

@@ -36,22 +36,17 @@ services:
     networks:
       - api-network
   api-db:
-    image: mysql:8.0
+    image: postgres:10.2
     container_name: api-db
     tty: true
     ports:
-      - 3306:3306
+      - 5342:5342
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: api
-      MYSQL_PORT: 3306
-      MYSQL_PASSWORD: 123456ping
-      MYSQL_DATABASE: api
-    command: --default-authentication-plugin=mysql_native_password
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: laravel
     volumes:
-      - apidbdata:/var/lib/mysql/
-      - ./docker/mysql/backup:/docker-entrypoint-initdb.d
-      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - apidbdata:/var/lib/postgresql
     networks:
       - api-network
 

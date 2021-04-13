@@ -2,19 +2,21 @@
 
 
 
-namespace App\Services\Action\Results;
+namespace App\Core\Action\Results;
 
 use App\Http\Responses\BaseResponse;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
-class ActionForbidden extends ActionResult
+class ActionError extends ActionResult
 {
 
-    public function __construct($data = null, $message = '')
+    public function __construct($message = "")
     {
-        $this->data = $data;
-        $this->message = $message;
+        $this->message = $message || __("general.unexpected:error");
         $this->boot();
     }
+
 
     public function toResponse(): BaseResponse
     {
@@ -23,7 +25,6 @@ class ActionForbidden extends ActionResult
         $response->data = $this->data;
         $response->errors =  [];
         $response->message = $this->message;
-
         return $response;
     }
 }

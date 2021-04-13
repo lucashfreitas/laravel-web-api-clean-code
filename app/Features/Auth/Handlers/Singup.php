@@ -3,24 +3,22 @@
 namespace App\Features\Auth\Handlers;
 
 use App\Features\Auth\Events\UserRegistered;
-use App\Features\Auth\Requests\LoginRequest;
 use App\Features\Auth\Requests\SignupRequest;
 use App\Models\User;
-use App\Services\Action\Action;
-use App\Services\Action\ActionFactory;
-use App\Services\Action\Results\ActionResult;
-use Exception;
-use Illuminate\Support\Facades\Auth;
+use App\Core\Action\ActionFactory;
+use App\Core\Action\Results\ActionResult;
+use App\Core\Handler\RequestHandler;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class SignupHandler extends Action
+class SignupHandler extends RequestHandler
 {
 
-    public function __construct(SignupRequest $request)
+
+    public function __construct(Request $request)
     {
         parent::__construct($request);
     }
-
 
     public function handle(): ActionResult
     {

@@ -1,27 +1,28 @@
 <?php
 
 
-namespace App\Services\Action;
+namespace App\Core\Action;
 
 use App\Http\Responses\BaseResponse;
-use App\Services\Action\Results\ActionUnauthorized;
-use App\Services\Action\Results\ActionResult;
-use App\Services\Action\Results\ActionDomainValidation;
-use App\Services\Action\Results\ActionForbidden;
-use App\Services\Action\Results\ActionError;
-use App\Services\Action\Results\ActionSuccess;
-use App\Utils\ConfigHelper;
+use App\Core\Handler\RequestHandler;
+use App\Core\Action\Results\ActionUnauthorized;
+use App\Core\Action\Results\ActionResult;
+use App\Core\Action\Results\ActionDomainValidation;
+use App\Core\Action\Results\ActionForbidden;
+use App\Core\Action\Results\ActionError;
+use App\Core\Action\Results\ActionSuccess;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 
+/**
+ * Executes the action and returns a api base response
+ */
 class ActionHandler
 {
 
 
 
-    protected function generateResponseFromAction(ActionResult $result)
+    protected static function generateResponseFromAction(ActionResult $result)
     {
 
         if ($result instanceof ActionSuccess) {
@@ -40,20 +41,23 @@ class ActionHandler
     }
 
 
-    public function execute(string $handler, Request $request): \Illuminate\Http\JsonResponse
+    public static function execute(RequestHandler $handler, Request $request): \Illuminate\Http\JsonResponse
     {
         $result = null;
+        /*
+        if in the future we need to use different implementations then makes sense to retrive the handler from container
         $handler = App::makeWith($handler, ['request' => $request]);
 
+        */
         if (!$handler) {
-            throw new Exception("Service $handler was not found in the service container");
+            throw new Exception("Handler $handler was not found in the service container");
         }
         try {
-            $result = $handler->handle();
+            $result = $handler->handle($request);
         } catch (Exception $ex) {
             $result =  $handler->onError($ex);
         }
 
-        return $this->generateResponseFromAction($result);
+        return self::generateResponseFromAction($result);
     }
 }

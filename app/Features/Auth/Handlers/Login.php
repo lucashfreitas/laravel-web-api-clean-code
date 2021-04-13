@@ -2,22 +2,17 @@
 
 namespace App\Features\Auth\Handlers;
 
+use App\Core\Handler\RequestHandler;
 use App\Features\Auth\Requests\LoginRequest;
-use App\Services\Action\Action;
-use App\Services\Action\ActionFactory;
-use App\Services\Action\Results\ActionResult;
-use Exception;
+use App\Core\Action\ActionFactory;
+use App\Core\Action\Results\ActionResult;
 use Illuminate\Support\Facades\Auth;
 
-class LoginHandler extends Action
+class LoginHandler extends RequestHandler
 {
-
-    public function __construct(LoginRequest $request)
-    {
+    public function __construct(LoginRequest  $request) {
         parent::__construct($request);
     }
-
-
     public function handle(): ActionResult
     {
         if (Auth::attempt($this->input)) {

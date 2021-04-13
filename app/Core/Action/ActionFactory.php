@@ -1,14 +1,13 @@
 <?php
 
 
-namespace App\Services\Action;
+namespace App\Core\Action;
 
-use App\Exceptions\ExceptionLogger;
-use App\Services\Action\Results\ActionDomainValidation;
-use App\Services\Action\Results\ActionSuccess;
-use App\Services\Action\Results\ActionError;
-use App\Services\Action\Results\ActionForbidden;
-use App\Services\Action\Results\ActionUnauthorized;
+use App\Core\Action\Results\ActionDomainValidation;
+use App\Core\Action\Results\ActionSuccess;
+use App\Core\Action\Results\ActionError;
+use App\Core\Action\Results\ActionForbidden;
+use App\Core\Action\Results\ActionUnauthorized;
 use Exception;
 use Illuminate\Http\Request;
 
