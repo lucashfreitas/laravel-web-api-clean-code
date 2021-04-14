@@ -5,7 +5,6 @@ namespace App\Providers;
 
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\Action\ActionHandler;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,9 +15,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('actionHandler', function ($app) {
-            return new ActionHandler();
-        });
 
     }
 

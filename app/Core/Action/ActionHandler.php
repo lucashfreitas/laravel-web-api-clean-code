@@ -41,7 +41,7 @@ class ActionHandler
     }
 
 
-    public static function execute(RequestHandler $handler, Request $request): \Illuminate\Http\JsonResponse
+    public static function execute(RequestHandler $handler): \Illuminate\Http\JsonResponse
     {
         $result = null;
         /*
@@ -53,7 +53,7 @@ class ActionHandler
             throw new Exception("Handler $handler was not found in the service container");
         }
         try {
-            $result = $handler->handle($request);
+            $result = $handler->handle();
         } catch (Exception $ex) {
             $result =  $handler->onError($ex);
         }

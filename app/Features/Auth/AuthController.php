@@ -2,7 +2,8 @@
 
 namespace App\Features\Auth;
 
-use App\Facades\ActionHandler;
+use App\Core\Action\ActionHandler;
+use App\Features\Auth\Handlers\LoginHandler;
 use App\Features\Auth\Handlers\LogoutHandler;
 use App\Features\Auth\Handlers\MeHandler;
 use App\Features\Auth\Handlers\SignupHandler;
@@ -21,7 +22,7 @@ class AuthController extends BaseController
 
     public function login(LoginRequest $request)
     {
-        return ActionHandler::execute(new SignupHandler($request));
+        return ActionHandler::execute(new LoginHandler($request));
     }
 
     public function logout(Request $request)

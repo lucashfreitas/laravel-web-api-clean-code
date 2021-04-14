@@ -225,7 +225,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Aws' =>  App\Services\Aws\AwsFacade::class,
-        'ActionHandler' =>  App\Facades\ActionHandler::class,
+
 
     ],
 

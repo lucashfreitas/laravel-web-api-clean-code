@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     mariadb-client \
     libpng-dev \
+    libpq-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     locales \
@@ -29,11 +30,12 @@ RUN apt-get update && apt-get install -y \
     libzip-dev
 
 
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-install pdo_mysql pgsql  pdo_pgsql mbstring zip exif pcntl
 RUN docker-php-ext-install gd
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
 
